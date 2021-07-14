@@ -1,13 +1,20 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"math/rand"
 	"strconv"
 
 	"github.com/tal-tech/go-zero/core/hash"
 	"github.com/tal-tech/go-zero/core/mathx"
-	"github.com/tal-tech/go-zero/core/sysx"
+	"github.com/tal-tech/go-zero/core/stringx"
+)
+
+var (
+	rounds = flag.Int("r", 10000, "rounds")
+	subset = flag.Int("s", 30, "subset")
+	elements = flag.Int("e", 1000, "elements")
 )
 
 func simpleSubset(set []string, sub int) []string {
@@ -31,7 +38,7 @@ func complexSubset(set []string, sub int) []string {
 
 	// group clients into rounds, each round uses the same shuffled list
 	count := uint64(len(set) / sub)
-	clientID := hash.Hash([]byte(sysx.Hostname()))
+	clientID := hash.Hash([]byte(stringx.RandId()))
 	round := clientID / count
 
 	r := rand.New(rand.NewSource(int64(round)))
@@ -45,8 +52,8 @@ func complexSubset(set []string, sub int) []string {
 
 func calcEntropy(vals []string, fn func([]string, int) []string) {
 	r := make(map[interface{}]int)
-	for i := 0; i < 100000; i++ {
-		subs := fn(vals, 30)
+	for i := 0; i < *rounds; i++ {
+		subs := fn(vals, *subset)
 		for _, sub := range subs {
 			r[sub]++
 		}
@@ -57,7 +64,7 @@ func calcEntropy(vals []string, fn func([]string, int) []string) {
 
 func main() {
 	var vals []string
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < *elements; i++ {
 		vals = append(vals, strconv.Itoa(i))
 	}
 
