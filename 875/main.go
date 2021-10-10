@@ -13,7 +13,6 @@ func main() {
 	var c rest.RestConf
 	conf.MustLoad("config.yaml", &c)
 
-	// init c here
 	r := router.NewRouter()
 	r.SetNotAllowedHandler(http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		fmt.Println("not allowed")

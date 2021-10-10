@@ -1,0 +1,15 @@
+type LoginRequest {
+	Name      string `json:"name"`
+	PassWorld string `json:"passWorld"`
+}
+
+type LoginResponse {
+	Id    uint   `json:"id"`
+	Name  string `json:"name"`
+	Token string `json:"token"`
+}
+
+service user-api {
+	@handler UserHandler
+	post /api/login(LoginRequest) returns (LoginResponse);
+}

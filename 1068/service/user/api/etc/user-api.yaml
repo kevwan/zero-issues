@@ -1,0 +1,8 @@
+Name: user-api
+Host: 0.0.0.0
+Port: 8881
+MySql:
+  DataSource: "zhangzhuang:Zhang123456@tcp(rm-uf63x44czp1i998i41o.mysql.rds.aliyuncs.com:3306)/admins?charset=utf8mb4&parseTime=True&loc=Local"
+Auth:
+  AccessSecret: "meimeimeimei"
+  AccessExpire: 72000

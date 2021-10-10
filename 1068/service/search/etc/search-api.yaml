@@ -1,0 +1,6 @@
+Name: search-api
+Host: 0.0.0.0
+Port: 8882
+Auth:
+  AccessSecret: "meimeimeimei"
+  AccessExpire: 72000
