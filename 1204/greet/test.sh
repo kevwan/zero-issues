@@ -1,0 +1,1 @@
+grpcurl -plaintext localhost:8080 greet.Greet/Ping
