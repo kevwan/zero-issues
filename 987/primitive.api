@@ -1,0 +1,14 @@
+service primitive-api {
+	@handler BoolHandler
+	get /bool returns (bool)
+	@handler BoolsHandler
+	get /bools returns ([]bool)
+	@handler IntHandler
+	get /int returns (int)
+	@handler IntsHandler
+	get /ints returns ([]int)
+	@handler StringHandler
+	get /string returns (string)
+	@handler StringsHandler
+	get /strings returns ([]string)
+}
