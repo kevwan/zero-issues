@@ -12,7 +12,10 @@ const (
 )
 
 func main() {
-	start := time.Now()
+	var start time.Time
+	proc.AddWrapUpListener(func() {
+		start = time.Now()
+	})
 	proc.AddWrapUpListener(func() {
 		time.Sleep(wrapInterval)
 		println(time.Since(start)/time.Second, 1)
