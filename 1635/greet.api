@@ -1,0 +1,18 @@
+type Request {
+	Name string `path:"name,options=[you,me]"`
+}
+
+type Response {
+	Message string `json:"message"`
+}
+
+@server(
+	group: greet
+)
+service greet-api {
+	@handler HelloHandler
+	get /hello/:name(Request) returns (Response)
+	
+	@handler GoodByeHandler
+	get /good-bye/:name(Request) returns (Response)
+}

@@ -1,2 +1,4 @@
 Name: rest
+Host: localhost
 Port: 8888
+Timeout: 500

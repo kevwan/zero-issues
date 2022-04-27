@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"github.com/tal-tech/go-zero/core/conf"
 	"github.com/tal-tech/go-zero/core/logx"
 	"github.com/tal-tech/go-zero/rest"
-	"github.com/tal-tech/go-zero/rest/router"
+	"github.com/tal-tech/go-zero/rest/httpx"
 )
 
 func main() {
@@ -17,8 +18,10 @@ func main() {
 	var c rest.RestConf
 	conf.MustLoad("config.yaml", &c)
 
-	r := router.NewRouter()
-	srv := rest.MustNewServer(c, rest.WithRouter(r))
+	httpx.SetErrorHandler(func(err error) (int, interface{}) {
+		return 499, err
+	})
+	srv := rest.MustNewServer(c)
 	srv.Use(func(next http.HandlerFunc) http.HandlerFunc {
 		return func(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("middleware")
@@ -30,6 +33,7 @@ func main() {
 		Method: http.MethodGet,
 		Path:   "/hello",
 		Handler: func(w http.ResponseWriter, r *http.Request) {
+			time.Sleep(time.Second)
 			io.WriteString(w, "hello")
 			io.WriteString(w, "world")
 		},
