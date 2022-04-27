@@ -12,6 +12,11 @@ func main() {
 	rds := redis.New("localhost:6379")
 	err := rds.Pipelined(func(pipeliner redis.Pipeliner) error {
 		val = pipeliner.Exists(context.Background(), "foo", "bar")
+		_, err := pipeliner.Exec(context.Background())
+		if err != nil {
+			return err
+		}
+		fmt.Println(val.Val())
 		return nil
 	})
 	if err != nil {
